@@ -26,6 +26,18 @@ code {
 
 .message{
   line-height: 1.5em;
+  list-style-type: none;
+}
+
+.inputBar{
+  position: absolute;
+  bottom: 10%;
+  width: 40%;
+}
+
+.newMessage{
+  width: 80%;
+  margin-right: 5px;
 }
 
 .chatRoom{
