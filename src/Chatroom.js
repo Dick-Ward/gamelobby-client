@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import api from './api'
 import Message from './Message'
+import {ActionCableConsumer} from 'react-actioncable-provider'
 
 
 class Chatroom extends Component{
@@ -19,19 +20,29 @@ class Chatroom extends Component{
     this.setState({newMessage: e.target.value})
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+  addMessage = (message) =>{
     this.setState(prevState => {
-      return {messages: [...prevState.messages, {content: prevState.newMessage}], newMessage: ""}
+      return {messages: [...prevState.messages, message], newMessage: ""}
     })
-
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    api.sendMessage(this.state.newMessage)
+    }
+
+
+
+
   render(){
-    console.log(this.state)
+
     return(
       <div className="chatRoom">
       {this.renderMessages()}
+      <ActionCableConsumer
+        channel={{channel: "MessageChannel"}}
+        onReceived={(message) => this.addMessage(message)}
+      />
       <form onSubmit={this.handleSubmit} className="inputBar">
         <input onChange={this.handleChange} className="newMessage" name="newMessage" value={this.state.newMessage}/>
         <input type="submit" value=">"/>
