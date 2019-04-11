@@ -28,6 +28,16 @@ code {
   line-height: 1.5em;
 }
 
+.inputBar{
+  position: fixed;
+  bottom: 8%;
+  width: 45%;
+}
+
+.newMessage{
+  width: 80%;
+}
+
 .chatRoom{
   width: 40%;
   height: 80%;
